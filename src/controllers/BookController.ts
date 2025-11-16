@@ -3,11 +3,12 @@ import {bookServiceEmbedded} from "../service/BookServiceImplEmbedded.ts";
 import {Book, BookDto} from "../model/book.ts";
 import {NextFunction, Request, Response} from "express";
 import {convertBookDtoToBook} from "../utils/tools.ts";
+import {BookServiceImplMongo} from "../service/BookServiceImplMongo.ts";
 
 export class BookController {
-    private service: BookService = bookServiceEmbedded;
+    private service: BookService = new BookServiceImplMongo();
 
-    async addBook(req: Request, res: Response) {
+    addBook = async (req: Request, res: Response) => {
         const dto = req.body as BookDto;
         const book: Book = convertBookDtoToBook(dto);
         const result = await this.service.addBook(book);
@@ -16,6 +17,31 @@ export class BookController {
 
     getAllBooks = async (req: Request, res: Response) => {
         const result = await this.service.getAllBooks();
+        res.json(result);
+    }
+
+    removeBook = async (req: Request, res: Response) => {
+        const id = req.params.id;
+        const result = await this.service.removeBook(id);
+        res.json(result);
+    }
+
+    pickBook = async (req: Request, res: Response) => {
+        const id = req.params.id;
+        const { reader, readerId } = req.body;
+        await this.service.pickBook(id, reader, readerId);
+        res.status(200).json({ message: "Book picked successfully" });
+    }
+
+    returnBook = async (req: Request, res: Response) => {
+        const id = req.params.id;
+        await this.service.returnBook(id);
+        res.status(200).json({ message: "Book returned successfully" });
+    }
+
+    getBookByAuthor = async (req: Request, res: Response) => {
+        const author = req.params.author;
+        const result = await this.service.getBookByAuthor(author);
         res.json(result);
     }
 }

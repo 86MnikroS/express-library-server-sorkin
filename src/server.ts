@@ -1,24 +1,11 @@
-import  express from 'express';
-import {PORT} from "./configurations/appConfig.ts";
-import {bookRouter} from "./routers/bookRouter.ts";
-import {errorHandler} from "./errorHandler/errorHandler.ts";
+import express from 'express';
+import { PORT } from "./configurations/appConfig.ts";
+import { bookRouter } from "./routers/bookRouter.ts";
+import { errorHandler } from "./errorHandler/errorHandler.ts";
+import mongoose from "mongoose";
 
-export const launchServer = () => {
-    const app = express();
-    app.listen(PORT, ()=>{
-        console.log('Server is running at http://localhost:${ PORT }');
-    })
-
-    //=========================MiddleWare=======================================
-    app.use(express.json())
-
-    //==========================Router==========================================
-    app.use('/api', bookRouter);
-
-
-    app.use((req,res)=>{
-        res.status(404).send('Page Not Found');
-    })
-
-    app.use(errorHandler);
-}
+export const initMongo = async () => {
+  const db = 'mongodb+srv://sorkinmihail_db_user:2wQJ9mbrwTndXxnw@cluster0.0k2kaeu.mongodb.net/?appName=Cluster0';
+  await mongoose.connect(db);
+  console.log("MongoDB Connected");
+};
