@@ -4,9 +4,11 @@ import {Book, BookDto} from "../model/book.ts";
 import {NextFunction, Request, Response} from "express";
 import {convertBookDtoToBook} from "../utils/tools.ts";
 import {BookServiceImplMongo} from "../service/BookServiceImplMongo.ts";
+import {BookCollectionImplMongoNew} from "../service/bookServiceImplMongoNew.ts";
 
 export class BookController {
-    private service: BookService = new BookServiceImplMongo();
+    //private service: BookService = new BookServiceImplMongo();
+    private service: BookService = new BookCollectionImplMongoNew();
 
     addBook = async (req: Request, res: Response) => {
         const dto = req.body as BookDto;

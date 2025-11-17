@@ -10,7 +10,7 @@ const pickListSchema = new mongoose.Schema({
 })
 
 const bookMongooseSchema = new mongoose.Schema({
-    _id:{type:String, default:()=> uuidv4() },
+    _id:{type:String, default:()=> uuidv4(), unique:true },
     title:{type:String, required:true},
     author:{type:String,required:true},
     year:{type:Number,min: 1900, max: 2050, required:true},
