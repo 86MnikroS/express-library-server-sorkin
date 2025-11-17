@@ -23,6 +23,7 @@
   "dependencies": {
     "express": "^5.1.0",
     "joi": "^18.0.1",
-    "mongoose": "^8.19.4"
+    "mongoose": "^8.19.4",
+    "uuid": "^13.0.0"
   }
 }
