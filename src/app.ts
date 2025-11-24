@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { createSqlPool } from "./configurations/appConfig.js";
 import { bookRouter } from "./routers/bookRouter.ts";
 import { errorHandler } from "./errorHandler/errorHandler.ts";
+import {accountRouter} from "./routers/accountRouter.ts";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 // Routers
 app.use("/api/books", bookRouter);
+app.use('account', accountRouter);
 
 // 404
 app.use((req, res) => {
