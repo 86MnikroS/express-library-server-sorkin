@@ -1,10 +1,13 @@
 import express from "express";
+import dotenv from "dotenv";
+import { createSqlPool } from "./configurations/appConfig.js";
 import { bookRouter } from "./routers/bookRouter.ts";
-import { initMongo } from "./server.ts";
 import { errorHandler } from "./errorHandler/errorHandler.ts";
 
-const PORT = 3050;
+dotenv.config();
+
 export const app = express();
+export const pool = createSqlPool(); // <-- создаём пул сразу
 
 // Middleware
 app.use(express.json());
@@ -12,21 +15,21 @@ app.use(express.json());
 // Routers
 app.use("/api/books", bookRouter);
 
-// 404 handler
+// 404
 app.use((req, res) => {
-  res.status(404).send("Page Not Found");
+    res.status(404).send("Page Not Found");
 });
 
 // Error handler
 app.use(errorHandler);
 
-// Start app with Mongo connection
-const start = async () => {
-  await initMongo();
+// ---- SERVER STARTUP ----
+const start = () => {
+    console.log("SQL Connected");
 
-  app.listen(PORT, () => {
-    console.log(`Server is running at http://localhost:${PORT}`);
-  });
+    app.listen(process.env.PORT, () => {
+        console.log(`Server is running at http://localhost:${process.env.PORT}`);
+    });
 };
 
 start();

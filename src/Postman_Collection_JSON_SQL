@@ -1,0 +1,121 @@
+{
+  "info": {
+    "_postman_id": "b8c0c0c4-76c6-4c0d-a831-f7616bf49c1c",
+    "name": "Express Library Server (SQL Version)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Books",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3050/api/books",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3050",
+          "path": ["api", "books"]
+        }
+      }
+    },
+    {
+      "name": "Get Books by Author",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3050/api/books/author/{{author}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3050",
+          "path": ["api", "books", "author", "{{author}}"]
+        }
+      }
+    },
+    {
+      "name": "Add Book",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"The Hobbit\",\n  \"author\": \"J.R.R. Tolkien\",\n  \"genre\": \"fantasy\",\n  \"year\": 1937,\n  \"quantity\": 3\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3050/api/books",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3050",
+          "path": ["api", "books"]
+        }
+      }
+    },
+    {
+      "name": "Delete Book",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3050/api/books/{{bookId}}",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3050",
+          "path": ["api", "books", "{{bookId}}"]
+        }
+      }
+    },
+    {
+      "name": "Pick Book",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"readerName\": \"Michael Sorkin\",\n  \"readerId\": 101000000\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3050/api/books/{{bookId}}/pick",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3050",
+          "path": ["api", "books", "{{bookId}}", "pick"]
+        }
+      }
+    },
+    {
+      "name": "Return Book",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3050/api/books/{{bookId}}/return",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3050",
+          "path": ["api", "books", "{{bookId}}", "return"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "bookId",
+      "value": "11111111-1111-1111-1111-111111111111"
+    },
+    {
+      "key": "author",
+      "value": "Tolkien"
+    }
+  ]
+}

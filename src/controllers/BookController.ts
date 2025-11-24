@@ -3,12 +3,13 @@ import {bookServiceEmbedded} from "../service/BookServiceImplEmbedded.ts";
 import {Book, BookDto} from "../model/book.ts";
 import {NextFunction, Request, Response} from "express";
 import {convertBookDtoToBook} from "../utils/tools.ts";
-import {BookServiceImplMongo} from "../service/BookServiceImplMongo.ts";
-import {BookCollectionImplMongoNew} from "../service/bookServiceImplMongoNew.ts";
+//import {BookServiceImplMongo} from "../service/BookServiceImplMongo.ts";
+// import {BookCollectionImplMongoNew} from "../service/bookServiceImplMongoNew.ts";
+import {bookServiceSQL} from "../service/bookServiceImplSQL.ts";
 
 export class BookController {
     //private service: BookService = new BookServiceImplMongo();
-    private service: BookService = new BookCollectionImplMongoNew();
+    private service: BookService = bookServiceSQL;
 
     addBook = async (req: Request, res: Response) => {
         const dto = req.body as BookDto;
