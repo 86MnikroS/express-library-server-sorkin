@@ -3,7 +3,7 @@ import mysql from "mysql2/promise";
 
 export const PORT = +process.env.PORT!;
 
-// export const db = 'mongodb+srv://sorkinmihail_db_user:2wQJ9mbrwTndXxnw@cluster0.0k2kaeu.mongodb.net/?appName=Cluster0';
+
 export const ACCOUNT_DB = process.env.MONGO_URI as string;
 
 export const createSqlPool = () => {
