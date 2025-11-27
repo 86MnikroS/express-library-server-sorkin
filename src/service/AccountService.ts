@@ -2,8 +2,8 @@ import {Reader, UpdateReaderDTO} from "../model/reader.ts";
 
 export interface AccountService {
     createAccount: (reader: Reader) => Promise<void>;
-    getAccount: (id: number) => Promise<Reader>;
-    removeAccount: (id: number) => Promise<Reader>;
-    changePassword: (id: number, newPassword: string) => Promise<void>;
-    editAccount:(id: number, newReaderData:UpdateReaderDTO) => Promise<Reader>;
+    getAccount: (id: string) => Promise<Reader | null>;
+    removeAccount: (id: string) => Promise<Reader | null>;
+    changePassword: (id: string, newPassword: string) => Promise<void>;
+    editAccount:(id: string, newReaderData: UpdateReaderDTO) => Promise<Reader | null>;
 }

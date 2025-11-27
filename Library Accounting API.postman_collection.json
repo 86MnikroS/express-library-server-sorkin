@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "bcd9c6b9-44ba-41b5-b0d7-bdc21b36a745",
+		"name": "Library Accounting API",
+		"description": "Коллекция для тестирования учетных записей читателей",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46287601",
+		"_collection_link": "https://www.postman.com/mnikros86/workspace/cw5-sorkin-nodejs/collection/46287601-bcd9c6b9-44ba-41b5-b0d7-bdc21b36a745?action=share&source=collection_link&creator=46287601"
+	},
+	"item": [
+		{
+			"name": "Create Reader",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"Test User\",\n    \"email\": \"test@example.com\",\n    \"password\": \"123456\",\n    \"birthDate\": \"1990-01-01\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3050/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3050",
+					"path": [
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Reader By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3050/account/{{readerId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3050",
+					"path": [
+						"account",
+						"{{readerId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "readerId",
+			"value": "PUT_UUID_HERE"
+		}
+	]
+}

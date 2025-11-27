@@ -8,14 +8,14 @@ class AccountController {
     service = accountServiceMongo;
     createReader = async (req: Request, res: Response) => {
         const body = req.body as ReaderDto;
-        const reader:Reader = convertReaderDtoToReader(body);
-        await this.service.createAccount(reader);
+        const readerData = convertReaderDtoToReader(body);
+        await this.service.createAccount(readerData as any);
         res.status(201).send();
     };
-    getAccountById = (req: Request, res: Response) => {
-        const id = +req.query.id!;
+    getAccountById = async (req: Request, res: Response) => {
+        const id = req.query.id as string;
         if (!id) throw new HttpError(400, 'No params');
-        const reader = this.service.getAccount(id);
+        const reader = await this.service.getAccount(id);
         res.json(reader);
     };
     removeAccount = (req: Request, res: Response) => {

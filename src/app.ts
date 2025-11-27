@@ -1,37 +1,20 @@
-import express from "express";
-import dotenv from "dotenv";
+import { launchServer } from "./server.js";
+import mongoose from "mongoose";
 import { createSqlPool } from "./configurations/appConfig.js";
-import { bookRouter } from "./routers/bookRouter.ts";
-import { errorHandler } from "./errorHandler/errorHandler.ts";
-import {accountRouter} from "./routers/accountRouter.ts";
+import dotenv from "dotenv";
 
 dotenv.config();
 
-export const app = express();
-export const pool = createSqlPool(); // <-- создаём пул сразу
+// SQL
+export const pool = createSqlPool();
+console.log("SQL connected");
 
-// Middleware
-app.use(express.json());
-
-// Routers
-app.use("/api/books", bookRouter);
-app.use('account', accountRouter);
-
-// 404
-app.use((req, res) => {
-    res.status(404).send("Page Not Found");
-});
-
-// Error handler
-app.use(errorHandler);
-
-// ---- SERVER STARTUP ----
-const start = () => {
-    console.log("SQL Connected");
-
-    app.listen(process.env.PORT, () => {
-        console.log(`Server is running at http://localhost:${process.env.PORT}`);
+// Mongo
+mongoose.connect(process.env.MONGO_URI as string)
+    .then(() => {
+        console.log("Mongo db connected");
+        launchServer();
+    })
+    .catch(err => {
+        console.log("Mongo connection failed", err);
     });
-};
-
-start();
