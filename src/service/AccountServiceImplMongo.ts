@@ -43,6 +43,7 @@ class AccountServiceImplMongo implements AccountService{
     async getAccount(id: number): Promise<Reader> {
 
         const result = await ReaderModel.findById(id).lean().exec();
+        console.log("FOUND ACCOUNT", result)
         if (!result) throw new HttpError(404, "Account not found");
         const {_id, username, email, passHash, birthDate, roles} = result;
         return {_id, username, email, passHash, birthDate, roles }

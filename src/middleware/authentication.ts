@@ -11,6 +11,12 @@ async function getBasicAuth(authHeader: string, service: AccountService, req: Au
     const auth = Buffer.from(authHeader.substring(BASIC.length), "base64").toString('ascii');
     console.log(auth);
     const [id, password] = auth.split(":");
+    console.log("Password (raw):", JSON.stringify(password));
+    console.log("Password length:", password.length);
+    console.log(
+        "Password bytes:",
+        [...password].map((c) => c.charCodeAt(0))
+    );
     if(id == process.env.OWNER && password === process.env.OWNER_PASS){
         req.userId = 100000000;
         req.roles = [Roles.SUPERVISOR]

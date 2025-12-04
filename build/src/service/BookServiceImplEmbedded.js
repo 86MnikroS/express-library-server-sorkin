@@ -4,7 +4,7 @@ class BookServiceImplEmbedded {
     constructor() {
         this.books = [
             {
-                id: "123",
+                _id: "123",
                 title: "War And Peace",
                 author: "Lev Tolstoy",
                 genre: BookGenres.CLASSIC,
@@ -15,8 +15,8 @@ class BookServiceImplEmbedded {
         ];
     }
     addBook(book) {
-        if (this.books.find(item => item.id === book.id))
-            throw new HttpError(409, `Book with id: ${book.id} already exists`);
+        if (this.books.find(item => item._id === book._id))
+            throw new HttpError(409, `Book with id: ${book._id} already exists`);
         this.books.push(book);
         return Promise.resolve();
     }
@@ -27,7 +27,7 @@ class BookServiceImplEmbedded {
         return Promise.resolve(this.books.filter(item => item.author === author));
     }
     pickBook(id, reader, readerId) {
-        const book = this.books.find(item => item.id === id);
+        const book = this.books.find(item => item._id === id);
         if (!book)
             throw new HttpError(404, `Book with id ${id} not found`);
         if (book.status !== BookStatus.IN_STOCK)
@@ -37,7 +37,7 @@ class BookServiceImplEmbedded {
         return Promise.resolve();
     }
     removeBook(id) {
-        const index = this.books.findIndex(item => item.id === id);
+        const index = this.books.findIndex(item => item._id === id);
         if (index === -1)
             throw new HttpError(404, `Book with id ${id} not found`);
         const removed = this.books.splice(index, 1)[0];
@@ -45,7 +45,7 @@ class BookServiceImplEmbedded {
         return Promise.resolve(removed);
     }
     returnBook(id) {
-        const book = this.books.find(item => item.id === id);
+        const book = this.books.find(item => item._id === id);
         if (!book)
             throw new HttpError(404, `Book with id ${id} not found`);
         if (book.status !== BookStatus.ON_HAND)

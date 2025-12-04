@@ -1,10 +1,13 @@
 import mysql from "mysql2/promise"
 import dotenv from "dotenv";
+dotenv.config();
+
+export const DB = process.env.DB!;
+export const ACCOUNT_DB = process.env.ACCOUNT_DB!;
+
 import {Roles} from "../utils/libTypes.js";
 
- export  const PORT = 3050;
-export const DB = "mongodb+srv://konspirin_db_user:x2vFIm6KGi2TntYv@cluster0.uyebf6a.mongodb.net/library?appName=Cluster0"
-export const ACCOUNT_DB = "mongodb+srv://konspirin_db_user:x2vFIm6KGi2TntYv@cluster0.uyebf6a.mongodb.net/readers_account?appName=Cluster0"
+export  const PORT = 3050;
 
  export const createSqlPool = () => {
     return mysql.createPool({
@@ -20,9 +23,9 @@ export const ACCOUNT_DB = "mongodb+srv://konspirin_db_user:x2vFIm6KGi2TntYv@clus
 
 export const pathRoles = {
     // ==== Accounts ====
-    "GET/account/byId": [Roles.READER],
-    "PATCH/account/password": [Roles.READER],
-    "PATCH/account/update": [Roles.ADMIN],
+    "GET/account/byId": [Roles.ADMIN, Roles.LIBRARIAN, Roles.READER],
+    "PATCH/account/password": [],
+    "PATCH/account/update": [Roles.ADMIN, Roles.READER],
     "DELETE/account": [Roles.SUPERVISOR],
     "PATCH/account/roles": [Roles.SUPERVISOR],
 

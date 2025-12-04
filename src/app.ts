@@ -11,6 +11,6 @@ mongoose.connect(process.env.ACCOUNT_DB as string).then(() => {
     console.log("Mongo db connected");
     launchServer();
 }).catch(err => {
-    console.log("Mongo connection failed")
+    console.log("Mongo connection failed", err.message);
 })
 //launchServer();

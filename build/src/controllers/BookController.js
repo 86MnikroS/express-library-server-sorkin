@@ -8,11 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { convertBookDtoToBook } from "../utils/tools.js";
-import { bookServiceMongo } from "../service/BookServiceImplMongo.js";
+import { bookServiceSql } from "../service/BookServiceImplSQL.js";
 export class BookController {
     constructor() {
         // service: BookService = bookServiceEmbedded;
-        this.service = bookServiceMongo;
+        //private service: BookService = bookServiceMongo;
+        this.service = bookServiceSql;
         this.removeBook = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const bookId = req.query.bookId;
             const result = yield this.service.removeBook(bookId);
