@@ -19,10 +19,56 @@ export const ACCOUNT_DB = "mongodb+srv://konspirin_db_user:x2vFIm6KGi2TntYv@clus
  export const skipRoutesArr = ["POST/account", "POST/account/login"];
 
 export const pathRoles = {
+    // ==== Accounts ====
     "GET/account/byId": [Roles.READER],
-    "PATCH/account/password":[Roles.READER],
-    "PATCH/account/update":[Roles.ADMIN],
-    "DELETE/account":[Roles.SUPERVISOR],
-    "PATCH/account/roles":[Roles.SUPERVISOR]
-}
+    "PATCH/account/password": [Roles.READER],
+    "PATCH/account/update": [Roles.ADMIN],
+    "DELETE/account": [Roles.SUPERVISOR],
+    "PATCH/account/roles": [Roles.SUPERVISOR],
 
+    // ==== Books ====
+    // BooksLIst
+    "GET/api/books": [
+        Roles.READER,
+        Roles.LIBRARIAN,
+        Roles.ADMIN,
+        Roles.SUPERVISOR
+    ],
+
+    // Add Book
+    "POST/api/books": [
+        Roles.LIBRARIAN,
+        Roles.ADMIN,
+        Roles.SUPERVISOR
+    ],
+
+    // Delete books
+    "DELETE/api/books": [
+        Roles.ADMIN,
+        Roles.SUPERVISOR
+    ],
+
+    // Pick book
+    "PATCH/api/books/pick": [
+        Roles.READER,
+        Roles.LIBRARIAN,
+        Roles.ADMIN,
+        Roles.SUPERVISOR
+    ],
+
+    // Return book
+    "PATCH/api/books/return": [
+        Roles.READER,
+        Roles.LIBRARIAN,
+        Roles.ADMIN,
+        Roles.SUPERVISOR
+    ],
+
+    // Search by author
+    "GET/api/books/author": [
+        Roles.READER,
+        Roles.LIBRARIAN,
+        Roles.ADMIN,
+        Roles.SUPERVISOR
+    ]
+}
