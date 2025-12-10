@@ -1,0 +1,160 @@
+{
+  "info": {
+    "name": "Express Library Server (HomeWork)",
+    "_postman_id": "e4a23cb2-9b00-4a75-a9e9-9122d2d1d4aa",
+    "description": "Коллекция для проверки авторизации, аккаунтов и книг в твоём проекте",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "AUTH (Basic → Token)",
+      "item": [
+        {
+          "name": "Login (Basic → Get JWT Token)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Basic {{basic_auth}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/account/byId?id={{my_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["account", "byId"],
+              "query": [
+                { "key": "id", "value": "{{my_id}}" }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "ACCOUNT",
+      "item": [
+        {
+          "name": "Get My Account (Bearer)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/account/byId?id={{my_id}}"
+          }
+        },
+        {
+          "name": "Get Other Account (Forbidden for Reader)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{base_url}}/account/byId?id={{other_id}}"
+          }
+        },
+        {
+          "name": "Change Password (Owner Only)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": {{my_id}},\n  \"oldPassword\": \"{{old_pass}}\",\n  \"newPassword\": \"{{new_pass}}\"\n}"
+            },
+            "url": "{{base_url}}/account/password"
+          }
+        },
+        {
+          "name": "Update Account (Owner OR Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"updated_user\",\n  \"email\": \"updated@example.com\",\n  \"birthDate\": \"1991-05-12\"\n}"
+            },
+            "url": "{{base_url}}/account/update?id={{my_id}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "BOOKS",
+      "item": [
+        {
+          "name": "Add Book (Admin or Librarian)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"New Book\",\n  \"author\": \"Some Author\",\n  \"genre\": \"adventure\",\n  \"year\": 2020,\n  \"quantity\": 1\n}"
+            },
+            "url": "{{base_url}}/api/books"
+          }
+        },
+        {
+          "name": "Get All Books",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/books"
+          }
+        },
+        {
+          "name": "Pick Book (Reader)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{book_id}}\"\n}"
+            },
+            "url": "{{base_url}}/api/books/pick"
+          }
+        },
+        {
+          "name": "Return Book",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{book_id}}\"\n}"
+            },
+            "url": "{{base_url}}/api/books/return"
+          }
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:3050" },
+    { "key": "my_id", "value": "100000003" },
+    { "key": "other_id", "value": "100000001" },
+    { "key": "basic_auth", "value": "MTAwMDAwMDAzOlJlYWRlcjEyMw==" },
+    { "key": "token", "value": "" },
+    { "key": "old_pass", "value": "Reader123" },
+    { "key": "new_pass", "value": "Reader999" },
+    { "key": "book_id", "value": "" }
+  ]
+}
