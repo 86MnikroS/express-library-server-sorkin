@@ -4,7 +4,14 @@ import { createSqlPool } from "./configurations/appConfig.js";
 import dotenv from "dotenv";
 dotenv.config();
 export const pool = createSqlPool();
-console.log("SQL connected");
+pool.getConnection()
+    .then(connection => {
+    console.log("SQL connected");
+    connection.release();
+})
+    .catch(err => {
+    console.error("SQL connection failed", err);
+});
 mongoose.connect(process.env.DB).then(() => {
     console.log("Mongo db connected");
     launchServer();
