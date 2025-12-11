@@ -1,214 +1,410 @@
 {
-	"info": {
-		"_postman_id": "491958c9-4f44-4810-824c-f067f7e0c7f3",
-		"name": "LibraryApi",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "18222058",
-		"_collection_link": "https://www.postman.com/warped-trinity-518501/workspace/java-28-31/collection/18222058-491958c9-4f44-4810-824c-f067f7e0c7f3?action=share&source=collection_link&creator=18222058"
-	},
-	"item": [
-		{
-			"name": "Books",
-			"item": [
-				{
-					"name": "GetAllBooks",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3050/api/books",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3050",
-							"path": [
-								"api",
-								"books"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "AddBook",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"author\": \"Orwell\",\r\n    \"genre\": \"dystopia\",\r\n    \"title\": \"1984\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3050/api/books",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3050",
-							"path": [
-								"api",
-								"books"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "RemoveBook",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"author\": \"Orwell\",\r\n    \"genre\": \"dystopia\",\r\n    \"title\": \"1984\"\r\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3050/api/books?bookId=361",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3050",
-							"path": [
-								"api",
-								"books"
-							],
-							"query": [
-								{
-									"key": "bookId",
-									"value": "361"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "PickBook",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n   \"reader\": \"Villy\",\r\n   \"readerId\": 123456789\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3050/api/books/pick?bookId=210",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3050",
-							"path": [
-								"api",
-								"books",
-								"pick"
-							],
-							"query": [
-								{
-									"key": "bookId",
-									"value": "210"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ReturnBook",
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"author\": \"Orwell\",\r\n    \"genre\": \"dystopia\",\r\n    \"title\": \"1984\"\r\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3050/api/books/return?bookId=123",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3050",
-							"path": [
-								"api",
-								"books",
-								"return"
-							],
-							"query": [
-								{
-									"key": "bookId",
-									"value": "123"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getBookByAuthor",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"author\": \"Orwell\",\r\n    \"genre\": \"dystopia\",\r\n    \"title\": \"1984\"\r\n}"
-						},
-						"url": {
-							"raw": "http://localhost:3050/api/books/author?author=Lev Tolstoy",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3050",
-							"path": [
-								"api",
-								"books",
-								"author"
-							],
-							"query": [
-								{
-									"key": "author",
-									"value": "Lev Tolstoy"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		}
-	]
+  "info": {
+    "_postman_id": "library-api-collection",
+    "name": "Library API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Account",
+      "item": [
+        {
+          "name": "Create Account",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 123456789,\n    \"username\": \"testuser\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\",\n    \"birthDate\": \"2000-01-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/account",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if(pm.response.code === 200) {",
+                  "    pm.environment.set(\"token\", pm.response.text());",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 123456789,\n    \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/account/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Account By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/account/byId?id=123456789",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account",
+                "byId"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "123456789"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Account",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"updatedUser\",\n    \"email\": \"updated@example.com\",\n    \"birthDate\": \"2000-01-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/account/update?id=123456789",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account",
+                "update"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "123456789"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 123456789,\n    \"oldPassword\": \"password123\",\n    \"newPassword\": \"newPassword123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/account/password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account",
+                "password"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Role",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/account/roles?id=123456789&role=admin",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account",
+                "roles"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "123456789"
+                },
+                {
+                  "key": "role",
+                  "value": "admin"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Account",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/account?id=123456789",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "123456789"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "Get All Books",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/books",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add Book",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"The Great Gatsby\",\n    \"author\": \"F. Scott Fitzgerald\",\n    \"genre\": \"Novel\",\n    \"year\": 1925,\n    \"quantity\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/books",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Book By Author",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/books/author?author=F. Scott Fitzgerald",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books",
+                "author"
+              ],
+              "query": [
+                {
+                  "key": "author",
+                  "value": "F. Scott Fitzgerald"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pick Book",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"id\": 123456789,\n    \"username\": \"testuser\",\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\",\n    \"birthDate\": \"2000-01-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/books/pick?bookId=BOOK_ID_HERE",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books",
+                "pick"
+              ],
+              "query": [
+                {
+                  "key": "bookId",
+                  "value": "BOOK_ID_HERE"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Return Book",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/books/return?bookId=BOOK_ID_HERE",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books",
+                "return"
+              ],
+              "query": [
+                {
+                  "key": "bookId",
+                  "value": "BOOK_ID_HERE"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove Book",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/books?bookId=BOOK_ID_HERE",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "books"
+              ],
+              "query": [
+                {
+                  "key": "bookId",
+                  "value": "BOOK_ID_HERE"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3050",
+      "type": "string"
+    }
+  ]
 }
