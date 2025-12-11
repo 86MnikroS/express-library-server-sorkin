@@ -1,12 +1,19 @@
 import express from "express";
 import { accountController } from "../controllers/AccountController.js";
 import { bodyValidator } from "../middleware/bodyValidator.js";
-import { paramsValidator } from "../middleware/paramsValidator.js";
-import { createReaderJoiSchema, changePasswordJoiSchema, updateReaderJoiSchema, idJoiSchema } from "../utils/joiSchemas.js";
+import { ChangePassDtoJoiSchema, LoginJoiSchema, ReaderDtoJoiSchema, UpdateAccountJoiSchema } from "../utils/joiSchemas.js";
 export const accountRouter = express.Router();
 const controller = accountController;
-accountRouter.post('/', bodyValidator(createReaderJoiSchema), controller.createReader);
-accountRouter.get('/:id', paramsValidator(idJoiSchema), controller.getAccountById);
-accountRouter.delete('/:id', paramsValidator(idJoiSchema), controller.removeAccount);
-accountRouter.patch('/password/:id', paramsValidator(idJoiSchema), bodyValidator(changePasswordJoiSchema), controller.changePassword);
-accountRouter.patch('/update/:id', paramsValidator(idJoiSchema), bodyValidator(updateReaderJoiSchema), controller.editAccount);
+accountRouter.post('/', bodyValidator(ReaderDtoJoiSchema), controller.createAccount);
+// accountRouter.get('/byId', async (req: AuthRequest, res) => {
+//     const roles = req.roles;
+//     if(!req.roles?.includes(Roles.READER))
+//         throw new HttpError(403, "");
+//     await controller.getAccountById(req, res);
+// });
+accountRouter.get('/byId', controller.getAccountById);
+accountRouter.delete('/', controller.removeAccount);
+accountRouter.patch('/password', bodyValidator(ChangePassDtoJoiSchema), controller.changePassword);
+accountRouter.patch('/update', bodyValidator(UpdateAccountJoiSchema), controller.editAccount);
+accountRouter.patch('/roles', controller.addRole);
+accountRouter.post('/login', bodyValidator(LoginJoiSchema), controller.login);

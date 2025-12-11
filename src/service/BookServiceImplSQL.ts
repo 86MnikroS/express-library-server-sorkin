@@ -1,8 +1,7 @@
 import {BookService} from "./BookService.js";
 import {Book, BookStatus, PickRecord} from "../model/book.js";
-
 import {HttpError} from "../errorHandler/HttpError.js";
-import {pool} from "../app.js";
+import {pool} from "../app.js"
 import {RowDataPacket} from "mysql2";
 
 export class BookServiceImplSQL implements BookService{

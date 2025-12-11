@@ -1,7 +1,3 @@
-/////(req,res,next) =>{
-//=========================some code=====================
-// next();
-//}
 import { HttpError } from "../errorHandler/HttpError.js";
 export const bodyValidator = (schema) => {
     return (req, res, next) => {

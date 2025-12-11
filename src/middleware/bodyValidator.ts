@@ -1,8 +1,3 @@
-//(req, res,next) => {
-//=================some code================
-// next();
-//}
-
 import Joi from "joi";
 import e, {NextFunction} from "express";
 import {HttpError} from "../errorHandler/HttpError.js";
