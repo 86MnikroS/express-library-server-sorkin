@@ -9,6 +9,8 @@ import { authenticate, skipRoutes } from "./middleware/authentication.js";
 import { accountServiceMongo } from "./service/AccountServiceImplMongo.js";
 import { authorize, requestLimitControl } from "./middleware/authorization.js";
 import { requestLimitControlMap } from "./utils/constants.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerDoc from "../docs/library-openapi.json" with { type: 'json' };
 export const launchServer = () => {
     const app = express();
     app.listen(config.port, () => {
@@ -26,6 +28,8 @@ export const launchServer = () => {
     //winston
     //pino
     //Log4js
+    //==================OpenApiDocs================
+    app.use('/docs', swaggerUi.setup(swaggerDoc));
     //===================Router====================
     app.use('/api/books', bookRouter);
     app.use('/account', accountRouter);
