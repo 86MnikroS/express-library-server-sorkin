@@ -1,7 +1,7 @@
-import {ReaderModel} from "../../../src/databases/mongooseSchemas.js";
-import {AccountServiceImplMongo} from "../../../src/service/AccountServiceImplMongo.js";
-import {Reader} from "../../../src/model/reader.js";
-jest.mock("../../../src/databases/mongooseSchemas.js");
+import {ReaderModel} from "../../../../src/databases/mongooseSchemas.js";
+import {AccountServiceImplMongo} from "../../../../src/service/AccountServiceImplMongo.js";
+import {Reader} from "../../../../src/model/reader.js";
+jest.mock("../../../../src/databases/mongooseSchemas.js");
 
 describe("AccountServiceImplMongo.createAccount", () => {
     const service = new AccountServiceImplMongo();

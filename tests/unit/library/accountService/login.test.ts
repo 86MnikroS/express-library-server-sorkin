@@ -1,7 +1,7 @@
-import { AccountServiceImplMongo } from "../../../src/service/AccountServiceImplMongo.js";
-import { getJWT } from "../../../src/utils/tools.js";
+import { AccountServiceImplMongo } from "../../../../src/service/AccountServiceImplMongo.js";
+import { getJWT } from "../../../../src/utils/tools.js";
 
-jest.mock("../../../src/utils/tools.js");
+jest.mock("../../../../src/utils/tools.js");
 
 describe("AccountServiceImplMongo.login", () => {
     const service = new AccountServiceImplMongo();

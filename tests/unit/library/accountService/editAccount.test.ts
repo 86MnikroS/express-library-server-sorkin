@@ -1,8 +1,8 @@
-import { ReaderModel } from "../../../src/databases/mongooseSchemas.js";
-import { AccountServiceImplMongo } from "../../../src/service/AccountServiceImplMongo.js";
-import { UpdateReaderDto } from "../../../src/model/reader.js";
+import { ReaderModel } from "../../../../src/databases/mongooseSchemas.js";
+import { AccountServiceImplMongo } from "../../../../src/service/AccountServiceImplMongo.js";
+import { UpdateReaderDto } from "../../../../src/model/reader.js";
 
-jest.mock("../../../src/databases/mongooseSchemas.js");
+jest.mock("../../../../src/databases/mongooseSchemas.js");
 
 describe("AccountServiceImplMongo.editAccount", () => {
     const service = new AccountServiceImplMongo();

@@ -1,7 +1,7 @@
-import { ReaderModel } from "../../../src/databases/mongooseSchemas.js";
-import { AccountServiceImplMongo } from "../../../src/service/AccountServiceImplMongo.js";
+import { ReaderModel } from "../../../../src/databases/mongooseSchemas.js";
+import { AccountServiceImplMongo } from "../../../../src/service/AccountServiceImplMongo.js";
 
-jest.mock("../../../src/databases/mongooseSchemas.js");
+jest.mock("../../../../src/databases/mongooseSchemas.js");
 
 describe("AccountServiceImplMongo.removeAccount", () => {
     const service = new AccountServiceImplMongo();

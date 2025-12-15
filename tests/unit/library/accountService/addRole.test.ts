@@ -1,8 +1,8 @@
-import { ReaderModel } from "../../../src/databases/mongooseSchemas.js";
-import { AccountServiceImplMongo } from "../../../src/service/AccountServiceImplMongo.js";
-import { Roles } from "../../../src/utils/libTypes.js";
+import { ReaderModel } from "../../../../src/databases/mongooseSchemas.js";
+import { AccountServiceImplMongo } from "../../../../src/service/AccountServiceImplMongo.js";
+import { Roles } from "../../../../src/utils/libTypes.js";
 
-jest.mock("../../../src/databases/mongooseSchemas.js");
+jest.mock("../../../../src/databases/mongooseSchemas.js");
 
 describe("AccountServiceImplMongo.addRole", () => {
     const service = new AccountServiceImplMongo();

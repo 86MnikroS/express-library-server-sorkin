@@ -1,8 +1,8 @@
-import { ReaderModel } from "../../../src/databases/mongooseSchemas.js";
-import { AccountServiceImplMongo } from "../../../src/service/AccountServiceImplMongo.js";
+import { ReaderModel } from "../../../../src/databases/mongooseSchemas.js";
+import { AccountServiceImplMongo } from "../../../../src/service/AccountServiceImplMongo.js";
 import bcrypt from "bcryptjs";
 
-jest.mock("../../../src/databases/mongooseSchemas.js");
+jest.mock("../../../../src/databases/mongooseSchemas.js");
 jest.mock("bcryptjs");
 
 describe("AccountServiceImplMongo.changePassword", () => {
