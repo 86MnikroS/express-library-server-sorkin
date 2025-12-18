@@ -5,66 +5,278 @@
     "version": "1.0",
     "description": "API for library control including security"
   },
-  "servers": [{
-    "url": "http://localhost:3050",
-    "description": "Dev local server"
-  }],
+  "servers": [
+    {
+      "url": "http://localhost:3050",
+      "description": "Dev local server"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "paths": {
     "/account": {
       "post": {
         "summary": "Add new reader's account",
         "description": "Add new reader's account w/o authorization",
-        "tags": ["accounting"],
+        "tags": [
+          "accounting"
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/reader_dto"
+                "$ref": "#/components/schemas/reader_auth_dto"
               }
-            },
-            "required": true
-          }
+            }
+          },
+          "required": true
         },
         "responses": {
-          "201":{
+          "201": {
             "description": "If you get response with status 201 - account was created"
           },
           "409": {
             "description": "id conflict",
             "content": {
-              "text/plain": "Reader already exists"
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Reader already exists"
+                }
+              }
             }
+          }
+        },
+        "security": []
+      },
+      "delete": {
+        "summary": "Remove account",
+        "description": "Remove reader account by ID. Requires 'super' role.",
+        "tags": [
+          "accounting"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the account to remove"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Account removed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/reader_dto"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Requires SuperUser role"
+          },
+          "404": {
+            "description": "Account not found"
+          }
+        }
+      }
+    },
+    "/api/books/pick": {
+      "patch": {
+        "summary": "Pick a book",
+        "description": "Assign a book to a reader. Requires 'librarian' role.",
+        "tags": [
+          "books"
+        ],
+        "parameters": [
+          {
+            "name": "bookId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the book to pick"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "readerName": {
+                    "type": "string"
+                  },
+                  "readerId": {
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "readerName",
+                  "readerId"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Book picked successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Book picked to John"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Requires Librarian role"
+          }
+        }
+      }
+    },
+    "/api/books/author": {
+      "get": {
+        "summary": "Get books by author",
+        "description": "Retrieve all books written by a specific author. Requires 'reader' role.",
+        "tags": [
+          "books"
+        ],
+        "parameters": [
+          {
+            "name": "author",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Name of the author"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of books by author",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/book_dto"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden - Requires Reader role"
           }
         }
       }
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
-      "reader_dto": {
+      "reader_auth_dto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "number",
-            "example": 123456
+            "example": 123456789
           },
-          "name": {
+          "username": {
             "type": "string",
             "example": "John"
           },
-          "e-mail": {
+          "email": {
             "type": "string",
             "example": "john@yahoo.com"
           },
           "password": {
             "type": "string",
-            "example": "q1234#$#hjdJKJ"
+            "example": "password123"
           },
-          "birth_date": {
+          "birthDate": {
             "type": "string",
+            "format": "date",
             "example": "2010-01-01"
           }
+        },
+        "required": [
+          "id",
+          "username",
+          "email",
+          "password",
+          "birthDate"
+        ]
+      },
+      "reader_dto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "username": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
+      },
+      "book_dto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "genre": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "title",
+          "author",
+          "genre",
+          "year"
+        ]
       }
     }
   }

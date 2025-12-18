@@ -62,8 +62,8 @@ export const authenticate = (service:AccountService) => {
 export const skipRoutes = (skipRoutes: string[]) => {
     return (req:AuthRequest, res:Response, next:NextFunction) => {
         const route = req.method + req.path;
-        console.log(route);
-        if(!req.userId && !skipRoutes.includes(route))
+        console.log("Checking route:", route);
+        if(!req.userId && !skipRoutes.some(skip => route.startsWith(skip)))
             throw new HttpError(401, "skipRoutes throw this error")
         next();
     }

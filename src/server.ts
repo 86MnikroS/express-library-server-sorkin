@@ -31,7 +31,7 @@ export const launchServer = () => {
     //pino
     //Log4js
     //==================OpenApiDocs================
-    app.use('/docs',swaggerUi.setup(swaggerDoc));
+    app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
     //===================Router====================
     app.use('/api/books', bookRouter);
     app.use('/account', accountRouter);

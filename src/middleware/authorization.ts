@@ -7,7 +7,7 @@ export const authorize = (pathRoles: Record<string, Roles[]>) => {
     return (req: AuthRequest, res: Response, next: NextFunction) => {
         const roles = req.roles;
         const route = req.method + req.path;
-        if (!roles || roles.some(r => pathRoles[route].includes(r)))
+        if (!pathRoles[route] || (roles && roles.some(r => pathRoles[route].includes(r))))
             next();
         else throw new HttpError(403, "");
     }
